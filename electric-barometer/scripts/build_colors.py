@@ -36,16 +36,26 @@ def write_tokens_css(data: dict) -> None:
 def write_mkdocs_material_css() -> None:
     css = """\
 /* Auto-generated from eb-brand tokens */
+
 :root {
+  /* Primary (header, tabs) */
   --md-primary-fg-color: var(--eb-light-brand-primary);
+  --md-primary-bg-color: var(--eb-light-brand-primary);
+  --md-primary-bg-color--light: var(--eb-light-brand-primary);
+
+  /* Accent */
   --md-accent-fg-color: var(--eb-light-brand-accent);
 
+  /* Page */
   --md-default-bg-color: var(--eb-light-background-canvas);
   --md-default-fg-color: var(--eb-light-text-primary);
 }
 
 [data-md-color-scheme="slate"] {
   --md-primary-fg-color: var(--eb-dark-brand-primary);
+  --md-primary-bg-color: var(--eb-dark-brand-primary);
+  --md-primary-bg-color--light: var(--eb-dark-brand-primary);
+
   --md-accent-fg-color: var(--eb-dark-brand-accent);
 
   --md-default-bg-color: var(--eb-dark-background-canvas);
