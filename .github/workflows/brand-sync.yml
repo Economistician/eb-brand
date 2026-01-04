@@ -7,6 +7,8 @@ on:
       - "electric-barometer/favicon/**"
       - "electric-barometer/icons/**"
       - "electric-barometer/logo/**"
+      - "electric-barometer/tokens/**"
+      - "electric-barometer/scripts/**"
   workflow_dispatch: {}
 
 permissions:
@@ -22,16 +24,28 @@ jobs:
           # ---- eb-docs ----
           - repo: economistician/eb-docs
             dest_root: docs/assets/brand
+            css_dest: docs/stylesheets
 
           # ---- electric-barometer-site ----
           - repo: economistician/electric-barometer-site
             dest_root: assets
+            css_dest: assets/css
 
     steps:
       - name: Checkout eb-brand (source)
         uses: actions/checkout@v4
         with:
           path: source
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Generate brand color artifacts
+        run: |
+          set -euo pipefail
+          python source/electric-barometer/scripts/build_colors.py
 
       - name: Checkout downstream repo
         uses: actions/checkout@v4
@@ -64,6 +78,20 @@ jobs:
           rsync -a --delete "${SRC}/icons/"  "${DEST}/icons/"
           rsync -a --delete "${SRC}/logo/"   "${DEST}/logo/"
 
+      - name: Sync generated color CSS
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          SRC="source/electric-barometer/dist"
+          DEST="target/${{ matrix.css_dest }}"
+
+          mkdir -p "${DEST}"
+
+          rsync -a "${SRC}/mkdocs-material.css" "${DEST}/eb-brand-colors.css"
+
+      - name: Review changes
+        run: |
           cd target
           git status --porcelain
 
@@ -73,21 +101,25 @@ jobs:
         with:
           token: ${{ secrets.BRAND_SYNC_TOKEN }}
           path: target
-          commit-message: "chore(brand): sync assets from eb-brand @ ${{ github.sha }}"
+          commit-message: "chore(brand): sync assets and color tokens from eb-brand @ ${{ github.sha }}"
           branch: "chore/brand-sync-${{ github.run_id }}-${{ matrix.repo }}"
-          title: "chore(brand): sync brand assets from eb-brand"
+          title: "chore(brand): sync brand assets and color tokens"
           body: |
             Automated sync from `eb-brand` commit `${{ github.sha }}`.
 
             Source:
-            - `eb-brand/electric-barometer/favicon/`
-            - `eb-brand/electric-barometer/icons/`
-            - `eb-brand/electric-barometer/logo/`
+            - `electric-barometer/favicon/`
+            - `electric-barometer/icons/`
+            - `electric-barometer/logo/`
+            - Generated from `electric-barometer/tokens/colors.json`
 
             Destination:
-            - `${{ matrix.dest_root }}/favicon/`
-            - `${{ matrix.dest_root }}/icons/`
-            - `${{ matrix.dest_root }}/logo/`
+            - `${{ matrix.dest_root }}/`
+            - `${{ matrix.css_dest }}/eb-brand-colors.css`
+
+            Notes:
+            - CSS is auto-generated via `build_colors.py`
+            - Downstream repos should treat this file as read-only
           labels: |
             brand
             automation
@@ -100,7 +132,6 @@ jobs:
           GH_TOKEN: ${{ secrets.BRAND_SYNC_TOKEN }}
         run: |
           set -euo pipefail
-          # PR URL looks like: https://github.com/OWNER/REPO/pull/123
           PR_NUMBER="$(echo "${PR_URL}" | sed -n 's#.*/pull/\([0-9]\+\).*#\1#p')"
 
           if [ -z "${PR_NUMBER}" ]; then
