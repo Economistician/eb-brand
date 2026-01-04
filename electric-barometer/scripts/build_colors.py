@@ -37,11 +37,15 @@ def write_mkdocs_material_css() -> None:
     css = """\
 /* Auto-generated from eb-brand tokens */
 
+/* ---------------------------
+   Light mode (default)
+--------------------------- */
 :root {
-  /* Primary (header, tabs) */
-  --md-primary-fg-color: var(--eb-light-brand-primary);
+  /* Header / primary */
   --md-primary-bg-color: var(--eb-light-brand-primary);
   --md-primary-bg-color--light: var(--eb-light-brand-primary);
+  --md-primary-bg-color--dark: var(--eb-light-brand-primary);
+  --md-primary-fg-color: var(--eb-light-text-on-brand);
 
   /* Accent */
   --md-accent-fg-color: var(--eb-light-brand-accent);
@@ -51,10 +55,14 @@ def write_mkdocs_material_css() -> None:
   --md-default-fg-color: var(--eb-light-text-primary);
 }
 
+/* ---------------------------
+   Dark mode (slate)
+--------------------------- */
 [data-md-color-scheme="slate"] {
-  --md-primary-fg-color: var(--eb-dark-brand-primary);
   --md-primary-bg-color: var(--eb-dark-brand-primary);
   --md-primary-bg-color--light: var(--eb-dark-brand-primary);
+  --md-primary-bg-color--dark: var(--eb-dark-brand-primary);
+  --md-primary-fg-color: var(--eb-dark-text-on-brand);
 
   --md-accent-fg-color: var(--eb-dark-brand-accent);
 
