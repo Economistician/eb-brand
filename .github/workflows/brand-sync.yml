@@ -1,0 +1,82 @@
+name: Sync brand assets to downstream repos
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "electric-barometer/favicon/**"
+      - "electric-barometer/icons/**"
+      - "electric-barometer/logo/**"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # ---- eb-docs ----
+          - repo: economistician/eb-docs
+            dest_root: docs/assets/brand
+
+          # ---- electric-barometer-site ----
+          - repo: economistician/electric-barometer-site
+            dest_root: assets
+
+    steps:
+      - name: Checkout eb-brand (source)
+        uses: actions/checkout@v4
+        with:
+          path: source
+
+      - name: Checkout downstream repo
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ matrix.repo }}
+          token: ${{ secrets.BRAND_SYNC_TOKEN }}
+          path: target
+
+      - name: Sync favicon/icons/logo
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          SRC="source/electric-barometer"
+          DEST="target/${{ matrix.dest_root }}"
+
+          mkdir -p "${DEST}/favicon" "${DEST}/icons" "${DEST}/logo"
+
+          rsync -a --delete "${SRC}/favicon/" "${DEST}/favicon/"
+          rsync -a --delete "${SRC}/icons/"  "${DEST}/icons/"
+          rsync -a --delete "${SRC}/logo/"   "${DEST}/logo/"
+
+          cd target
+          git status --porcelain
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.BRAND_SYNC_TOKEN }}
+          path: target
+          commit-message: "chore(brand): sync assets from eb-brand @ ${{ github.sha }}"
+          branch: "chore/brand-sync-${{ github.run_id }}-${{ matrix.repo }}"
+          title: "chore(brand): sync brand assets from eb-brand"
+          body: |
+            Automated sync from `eb-brand` commit `${{ github.sha }}`.
+
+            Source:
+            - `eb-brand/electric-barometer/favicon/`
+            - `eb-brand/electric-barometer/icons/`
+            - `eb-brand/electric-barometer/logo/`
+
+            Destination:
+            - `${{ matrix.dest_root }}/favicon/`
+            - `${{ matrix.dest_root }}/icons/`
+            - `${{ matrix.dest_root }}/logo/`
+          labels: |
+            brand
+            automation
