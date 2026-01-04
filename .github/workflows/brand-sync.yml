@@ -64,7 +64,6 @@ jobs:
 
           mkdir -p "${DEST}/favicon" "${DEST}/icons" "${DEST}/logo"
 
-          # Ensure icons are actually present in source (fail fast if missing/empty)
           if [ ! -d "${SRC}/icons" ]; then
             echo "ERROR: Missing source directory: ${SRC}/icons"
             exit 1
@@ -88,7 +87,8 @@ jobs:
 
           mkdir -p "${DEST}"
 
-          rsync -a "${SRC}/mkdocs-material.css" "${DEST}/eb-brand-colors.css"
+          rsync -a "${SRC}/tokens.css"           "${DEST}/eb-brand-tokens.css"
+          rsync -a "${SRC}/mkdocs-material.css"  "${DEST}/eb-brand-colors.css"
 
       - name: Review changes
         run: |
@@ -115,11 +115,12 @@ jobs:
 
             Destination:
             - `${{ matrix.dest_root }}/`
+            - `${{ matrix.css_dest }}/eb-brand-tokens.css`
             - `${{ matrix.css_dest }}/eb-brand-colors.css`
 
             Notes:
             - CSS is auto-generated via `build_colors.py`
-            - Downstream repos should treat this file as read-only
+            - Downstream repos should treat these files as read-only
           labels: |
             brand
             automation
@@ -139,5 +140,4 @@ jobs:
             exit 1
           fi
 
-          echo "Enabling auto-merge for PR #${PR_NUMBER} (${PR_URL})"
           gh pr merge "${PR_NUMBER}" --repo "${{ matrix.repo }}" --squash --auto
