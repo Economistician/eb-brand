@@ -1,0 +1,49 @@
+{
+  "meta": {
+    "system": "Electric Barometer",
+    "version": "1.0",
+    "notes": "UI tokens are derived from the logo. Logo colors themselves are logo-only and not exposed as UI tokens."
+  },
+
+  "light": {
+    "background": {
+      "canvas": "#F8FAFC",
+      "surface": "#EEF2F7",
+      "divider": "#D6DCE5"
+    },
+
+    "text": {
+      "primary": "#111827",
+      "secondary": "#4B5563",
+      "muted": "#6B7280"
+    },
+
+    "brand": {
+      "primary": "#2E4A62",
+      "primary_muted": "#5E7387",
+      "accent": "#C9A227",
+      "accent_muted": "#E6D38A"
+    }
+  },
+
+  "dark": {
+    "background": {
+      "canvas": "#0B0F14",
+      "surface": "#111827",
+      "divider": "#1F2937"
+    },
+
+    "text": {
+      "primary": "#E5E7EB",
+      "secondary": "#9CA3AF",
+      "muted": "#6B7280"
+    },
+
+    "brand": {
+      "primary": "#5B7C99",
+      "primary_muted": "#3E5A73",
+      "accent": "#D4AF37",
+      "accent_muted": "#A38B2E"
+    }
+  }
+}
