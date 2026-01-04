@@ -50,6 +50,16 @@ jobs:
 
           mkdir -p "${DEST}/favicon" "${DEST}/icons" "${DEST}/logo"
 
+          # Ensure icons are actually present in source (fail fast if missing/empty)
+          if [ ! -d "${SRC}/icons" ]; then
+            echo "ERROR: Missing source directory: ${SRC}/icons"
+            exit 1
+          fi
+          if [ -z "$(ls -A "${SRC}/icons" 2>/dev/null)" ]; then
+            echo "ERROR: Source icons directory is empty: ${SRC}/icons"
+            exit 1
+          fi
+
           rsync -a --delete "${SRC}/favicon/" "${DEST}/favicon/"
           rsync -a --delete "${SRC}/icons/"  "${DEST}/icons/"
           rsync -a --delete "${SRC}/logo/"   "${DEST}/logo/"
@@ -58,6 +68,7 @@ jobs:
           git status --porcelain
 
       - name: Create Pull Request
+        id: cpr
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.BRAND_SYNC_TOKEN }}
@@ -80,3 +91,11 @@ jobs:
           labels: |
             brand
             automation
+
+      - name: Enable auto-merge (squash)
+        if: ${{ steps.cpr.outputs.pull-request-number != '' }}
+        uses: peter-evans/enable-pull-request-automerge@v3
+        with:
+          token: ${{ secrets.BRAND_SYNC_TOKEN }}
+          pull-request-number: ${{ steps.cpr.outputs.pull-request-number }}
+          merge-method: squash
