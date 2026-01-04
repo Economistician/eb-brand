@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 512 512"
+     preserveAspectRatio="xMidYMid meet"
+     role="img"
+     aria-labelledby="title desc">
+
+  <title id="title">Electric Barometer favicon</title>
+  <desc id="desc">A lightning bolt cutting through a broken blue circle.</desc>
+
+  <defs>
+    <style>
+      .bolt { fill: #EDA724; }
+      .ring {
+        fill: none;
+        stroke: #3D5166;
+        stroke-width: 56;
+        stroke-linecap: round;
+      }
+    </style>
+
+    <!-- Explicit bounds added for renderer safety -->
+    <mask id="ringCut"
+          maskUnits="userSpaceOnUse"
+          x="0" y="0" width="512" height="512">
+      <rect x="0" y="0" width="512" height="512" fill="white"/>
+
+      <!-- Bolt knockout with favicon-safe clearance -->
+      <path
+        d="
+          M 300 48
+          L 190 260
+          H 260
+          L 180 464
+          L 332 228
+          H 252
+          Z
+        "
+        fill="black"
+        stroke="black"
+        stroke-width="18"
+        stroke-linejoin="round"
+      />
+    </mask>
+  </defs>
+
+  <!-- Ring, cut by bolt -->
+  <g mask="url(#ringCut)">
+    <path class="ring" d="M 340 92 A 192 192 0 0 0 150 210"/>
+    <path class="ring" d="M 172 420 A 192 192 0 0 0 362 302"/>
+  </g>
+
+  <!-- Bolt -->
+  <path class="bolt"
+        d="
+          M 300 48
+          L 190 260
+          H 260
+          L 180 464
+          L 332 228
+          H 252
+          Z
+        "/>
+</svg>
