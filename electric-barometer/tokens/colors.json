@@ -9,6 +9,7 @@
     "background": {
       "canvas": "#F8FAFC",
       "surface": "#EEF2F7",
+      "header": "#243E56",
       "divider": "#D6DCE5"
     },
 
@@ -30,6 +31,7 @@
     "background": {
       "canvas": "#0B0F14",
       "surface": "#111827",
+      "header": "#3B5670",
       "divider": "#1F2937"
     },
 
