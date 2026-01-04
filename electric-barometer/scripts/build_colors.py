@@ -43,7 +43,7 @@ def write_mkdocs_material_css() -> None:
   --md-primary-bg-color: var(--eb-light-background-header);
   --md-primary-bg-color--light: var(--eb-light-background-header);
   --md-primary-bg-color--dark: var(--eb-light-background-header);
-  --md-primary-fg-color: var(--eb-light-text-primary);
+  --md-primary-fg-color: var(--eb-light-text-on-brand);
 
   /* Accent */
   --md-accent-fg-color: var(--eb-light-brand-accent);
@@ -60,7 +60,7 @@ def write_mkdocs_material_css() -> None:
   --md-primary-bg-color: var(--eb-dark-background-header);
   --md-primary-bg-color--light: var(--eb-dark-background-header);
   --md-primary-bg-color--dark: var(--eb-dark-background-header);
-  --md-primary-fg-color: var(--eb-dark-text-primary);
+  --md-primary-fg-color: var(--eb-dark-text-on-brand);
 
   --md-accent-fg-color: var(--eb-dark-brand-accent);
 
