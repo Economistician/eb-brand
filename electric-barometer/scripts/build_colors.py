@@ -28,9 +28,7 @@ def write_tokens_css(data: dict) -> None:
             lines.append(f"  --{k}: {v};")
     lines.append("}")
 
-    (DIST / "tokens.css").write_text(
-        "\n".join(lines) + "\n", encoding="utf-8"
-    )
+    (DIST / "tokens.css").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
 def write_mkdocs_material_css() -> None:
@@ -42,10 +40,10 @@ def write_mkdocs_material_css() -> None:
 --------------------------- */
 :root {
   /* Header / primary */
-  --md-primary-bg-color: var(--eb-light-brand-primary);
-  --md-primary-bg-color--light: var(--eb-light-brand-primary);
-  --md-primary-bg-color--dark: var(--eb-light-brand-primary);
-  --md-primary-fg-color: var(--eb-light-text-on-brand);
+  --md-primary-bg-color: var(--eb-light-background-header);
+  --md-primary-bg-color--light: var(--eb-light-background-header);
+  --md-primary-bg-color--dark: var(--eb-light-background-header);
+  --md-primary-fg-color: var(--eb-light-text-primary);
 
   /* Accent */
   --md-accent-fg-color: var(--eb-light-brand-accent);
@@ -59,10 +57,10 @@ def write_mkdocs_material_css() -> None:
    Dark mode (slate)
 --------------------------- */
 [data-md-color-scheme="slate"] {
-  --md-primary-bg-color: var(--eb-dark-brand-primary);
-  --md-primary-bg-color--light: var(--eb-dark-brand-primary);
-  --md-primary-bg-color--dark: var(--eb-dark-brand-primary);
-  --md-primary-fg-color: var(--eb-dark-text-on-brand);
+  --md-primary-bg-color: var(--eb-dark-background-header);
+  --md-primary-bg-color--light: var(--eb-dark-background-header);
+  --md-primary-bg-color--dark: var(--eb-dark-background-header);
+  --md-primary-fg-color: var(--eb-dark-text-primary);
 
   --md-accent-fg-color: var(--eb-dark-brand-accent);
 
