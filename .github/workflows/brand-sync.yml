@@ -93,9 +93,20 @@ jobs:
             automation
 
       - name: Enable auto-merge (squash)
-        if: ${{ steps.cpr.outputs.pull-request-number != '' }}
-        uses: peter-evans/enable-pull-request-automerge@v3
-        with:
-          token: ${{ secrets.BRAND_SYNC_TOKEN }}
-          pull-request-number: ${{ steps.cpr.outputs.pull-request-number }}
-          merge-method: squash
+        if: ${{ steps.cpr.outputs.pull-request-url != '' }}
+        shell: bash
+        env:
+          PR_URL: ${{ steps.cpr.outputs.pull-request-url }}
+          GH_TOKEN: ${{ secrets.BRAND_SYNC_TOKEN }}
+        run: |
+          set -euo pipefail
+          # PR URL looks like: https://github.com/OWNER/REPO/pull/123
+          PR_NUMBER="$(echo "${PR_URL}" | sed -n 's#.*/pull/\([0-9]\+\).*#\1#p')"
+
+          if [ -z "${PR_NUMBER}" ]; then
+            echo "ERROR: Could not parse PR number from URL: ${PR_URL}"
+            exit 1
+          fi
+
+          echo "Enabling auto-merge for PR #${PR_NUMBER} (${PR_URL})"
+          gh pr merge "${PR_NUMBER}" --repo "${{ matrix.repo }}" --squash --auto
