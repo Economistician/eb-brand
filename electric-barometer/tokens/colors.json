@@ -16,7 +16,8 @@
     "text": {
       "primary": "#0F172A",
       "secondary": "#334155",
-      "muted": "#475569"
+      "muted": "#475569",
+      "on_brand": "#FFFFFF"
     },
 
     "brand": {
@@ -38,7 +39,8 @@
     "text": {
       "primary": "#E5E7EB",
       "secondary": "#9CA3AF",
-      "muted": "#6B7280"
+      "muted": "#6B7280",
+      "on_brand": "#E5E7EB"
     },
 
     "brand": {
