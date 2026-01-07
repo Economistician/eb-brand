@@ -1,29 +1,29 @@
 {
   "meta": {
     "system": "Electric Barometer",
-    "version": "1.0",
+    "version": "1.1",
     "notes": "UI tokens are derived from the logo. Logo colors themselves are logo-only and not exposed as UI tokens."
   },
 
   "light": {
     "background": {
-      "canvas": "#F8FAFC",
-      "surface": "#EEF2F7",
-      "header": "#243E56",
-      "divider": "#D6DCE5"
+      "canvas": "#E9EEF3",
+      "surface": "#DDE4EA",
+      "header": "#3F4750",
+      "divider": "#C3CDD7"
     },
 
     "text": {
-      "primary": "#111827",
-      "secondary": "#4B5563",
-      "muted": "#6B7280"
+      "primary": "#0F172A",
+      "secondary": "#334155",
+      "muted": "#475569"
     },
 
     "brand": {
-      "primary": "#2E4A62",
-      "primary_muted": "#5E7387",
-      "accent": "#C9A227",
-      "accent_muted": "#E6D38A"
+      "primary": "#1098D4",
+      "primary_muted": "#2364A7",
+      "accent": "#F0BC2E",
+      "accent_muted": "#F4D36A"
     }
   },
 
@@ -31,7 +31,7 @@
     "background": {
       "canvas": "#0B0F14",
       "surface": "#111827",
-      "header": "#3B5670",
+      "header": "#2E353D",
       "divider": "#1F2937"
     },
 
@@ -42,10 +42,10 @@
     },
 
     "brand": {
-      "primary": "#5B7C99",
-      "primary_muted": "#3E5A73",
-      "accent": "#D4AF37",
-      "accent_muted": "#A38B2E"
+      "primary": "#0C96D4",
+      "primary_muted": "#2364A7",
+      "accent": "#F4C940",
+      "accent_muted": "#C89E2A"
     }
   }
 }
