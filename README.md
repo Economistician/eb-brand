@@ -8,8 +8,6 @@ Canonical brand and visual identity assets for the Electric Barometer ecosystem.
 
 ## Overview
 
-## Overview
-
 `eb-brand` contains the canonical visual identity assets for the Electric Barometer ecosystem. It serves as the single source of truth for logos, icons, favicons, color tokens, and related styling primitives used across repositories, documentation sites, and public-facing materials.
 
 This repository is deliberately scoped to **static assets only**. It does not include executable code, UI components, or application-specific styling logic. Instead, it provides stable, reusable brand artifacts that downstream systems and repositories may reference, synchronize, or embed as needed.
