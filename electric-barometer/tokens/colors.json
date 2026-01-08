@@ -17,7 +17,8 @@
       "primary": "#1098D4",
       "secondary": "#334155",
       "muted": "#475569",
-      "on_brand": "#1098D4"
+      "on_brand": "#1098D4",
+      "on_header": "#1098D4"
     },
 
     "brand": {
