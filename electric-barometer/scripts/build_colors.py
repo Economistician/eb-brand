@@ -12,7 +12,9 @@ DIST = ROOT / "dist"
 def flatten(prefix: str, obj: dict) -> dict[str, str]:
     out: dict[str, str] = {}
     for k, v in obj.items():
-        key = f"{prefix}-{k}" if prefix else k
+        # Normalize token keys to kebab-case so CSS variable names match
+        # any references that use hyphenated names (e.g., on-brand vs on_brand).
+        key = (f"{prefix}-{k}" if prefix else k).replace("_", "-")
         if isinstance(v, dict):
             out.update(flatten(key, v))
         else:
@@ -32,7 +34,7 @@ def write_tokens_css(data: dict) -> None:
 
 
 def write_mkdocs_material_css() -> None:
-    # Note: In MkDocs Material, fg-color is the header background 
+    # Note: In MkDocs Material, fg-color is the header background
     # and bg-color is the text/icon color inside that header.
     css = """\
 /* Auto-generated from eb-brand tokens */
