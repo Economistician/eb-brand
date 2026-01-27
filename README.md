@@ -55,4 +55,4 @@ If alternate formats or variants are needed, they should be added here rather th
 
 ## License
 
-BSD 3-Clause License. © 2025 Kyle Corrie.
+MIT License. © 2025 Kyle Corrie.
