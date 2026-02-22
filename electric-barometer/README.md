@@ -14,19 +14,19 @@ The contents of this directory are **static assets only**. No executable code, U
 
 ## Contents
 
-- **`favicon/`**  
+- **`favicon/`**
   Favicon assets, including SVG and multi-size ICO variants.
 
-- **`logo/`**  
+- **`logo/`**
   Primary Electric Barometer logos, including square variants for icon and avatar usage.
 
-- **`icons/`**  
+- **`icons/`**
   Supporting iconography derived from the core brand identity.
 
-- **`tokens/`**  
+- **`tokens/`**
   Canonical color and styling tokens.
 
-- **`scripts/`**  
+- **`scripts/`**
   Supporting utilities for asset generation and maintenance.
 
 ---
